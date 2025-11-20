@@ -1,16 +1,187 @@
-# invest_mrsu
+# 📈 Invest MRSU - Умное инвестирование с ML
 
-A new Flutter project.
+> Кроссплатформенное мобильное приложение для инвестиций с прогнозированием на основе машинного обучения
 
-## Getting Started
+[![Flutter](https://img.shields.io/badge/Flutter-3.9.2-blue.svg)](https://flutter.dev/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Android-green.svg)](https://flutter.dev/)
+[![Status](https://img.shields.io/badge/Status-MVP-orange.svg)](https://github.com)
 
-This project is a starting point for a Flutter application.
+## 🎯 О проекте
 
-A few resources to get you started if this is your first Flutter project:
+**Invest MRSU** - это инвестиционное приложение нового поколения, которое использует машинное обучение для прогнозирования доходности акций. Приложение помогает пользователям принимать обоснованные решения об инвестициях, предоставляя:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 📊 Прогнозы цен акций на основе ML
+- 💰 Расчет дивидендов и потенциальной прибыли
+- 🎮 Геймификацию для мотивации инвестирования
+- 📱 Удобный интерфейс для управления портфелем
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Основные возможности
+
+✅ **Портфель с виртуальным балансом** (100,000₽ на старте)
+✅ **5 акций холдинга Газпром** с реальными тикерами
+✅ **ML прогнозы** на неделю, месяц и год
+✅ **Расчет дивидендов** (исторические, ожидаемые, прогнозируемые)
+✅ **Интерактивные графики** цен акций
+✅ **Система заданий** с наградами
+✅ **Покупка/продажа** с автоматическим расчетом P&L
+
+## 🚀 Быстрый старт
+
+### Требования
+
+- Flutter SDK 3.9.2+
+- Dart SDK 3.0+
+- Windows 10+ (для Windows версии)
+- Android Studio / VS Code
+
+### Установка
+
+```bash
+# Клонировать репозиторий
+git clone https://github.com/your-repo/investApp.git
+cd investApp/invest_mrsu
+
+# Установить зависимости
+flutter pub get
+
+# Запустить на Windows
+flutter run -d windows
+
+# Запустить на Android
+flutter run
+```
+
+### Первый запуск
+
+1. Откройте приложение
+2. Зарегистрируйтесь с любым email и паролем (мин. 6 символов)
+3. Изучите акции Газпрома
+4. Совершите первую покупку
+5. Получите награду за задание!
+
+📖 **Подробная инструкция**: [QUICK_START.md](QUICK_START.md)
+
+## 📱 Скриншоты
+
+```
+┌─────────────────┬─────────────────┬─────────────────┐
+│   Авторизация   │    Dashboard    │   Список акций  │
+├─────────────────┼─────────────────┼─────────────────┤
+│   📊 График     │   🔮 Прогнозы   │  💰 Дивиденды   │
+├─────────────────┼─────────────────┼─────────────────┤
+│   💼 Портфель   │   🏆 Задания    │  💸 Покупка     │
+└─────────────────┴─────────────────┴─────────────────┘
+```
+
+## 🏗 Архитектура
+
+### Структура проекта
+
+```
+lib/
+├── models/              # Модели данных
+│   ├── stock.dart       # Модель акции
+│   ├── portfolio.dart   # Портфель и холдинги
+│   ├── prediction.dart  # ML прогнозы
+│   ├── dividend.dart    # Дивиденды
+│   ├── transaction.dart # Транзакции
+│   └── task.dart        # Игровые задания
+├── providers/           # State Management (Provider)
+│   ├── auth_provider.dart
+│   ├── portfolio_provider.dart
+│   ├── stocks_provider.dart
+│   └── tasks_provider.dart
+├── screens/             # UI экраны
+│   ├── auth/           # Авторизация
+│   ├── home/           # Главные экраны (4 вкладки)
+│   ├── stock/          # Детали акции
+│   └── widgets/        # Переиспользуемые виджеты
+├── data/               # Mock данные
+│   └── mock_data.dart
+└── main.dart           # Точка входа
+```
+
+### Технологический стек
+
+**Frontend:**
+- [Flutter](https://flutter.dev/) - UI фреймворк
+- [Provider](https://pub.dev/packages/provider) - State management
+- [fl_chart](https://pub.dev/packages/fl_chart) - Графики
+- [intl](https://pub.dev/packages/intl) - Форматирование
+
+**Backend (Планируется):**
+- FastAPI (Python) на Render.com
+- Supabase (PostgreSQL + Auth)
+- MOEX API (данные акций)
+- Prophet/ARIMA (ML модель)
+
+## 📊 Доступные акции
+
+| Тикер | Компания | Цена | Изменение |
+|-------|----------|------|-----------|
+| GAZP | ПАО "Газпром" | 173.50₽ | +1.34% |
+| GAZP-p | Газпром (прив.) | 145.80₽ | -1.02% |
+| SIBN | Газпром нефть | 548.20₽ | +1.13% |
+| GCHE | Газпром-нефтехим | 42.15₽ | +0.84% |
+| MRKZ | Россети Урал | 0.0285₽ | +1.79% |
+
+## 🎮 Геймификация
+
+| Задание | Описание | Награда |
+|---------|----------|---------|
+| Добро пожаловать! | Зарегистрируйтесь | 100₽ |
+| Первые шаги инвестора | Совершите первую покупку | 500₽ |
+| Аналитик | Изучите 3 прогноза | 300₽ |
+| Долгосрочный инвестор | Держите акции 7 дней | 1000₽ |
+| Постоянный пользователь | Ежедневный вход | 200₽ |
+
+## 🗺 Roadmap
+
+### ✅ MVP (День 1) - ГОТОВО
+- [x] UI/UX все экраны
+- [x] Mock данные
+- [x] Покупка/продажа акций
+- [x] Прогнозы и дивиденды
+- [x] Геймификация
+
+### 🔄 Backend (Дни 2-6)
+- [ ] Supabase интеграция
+- [ ] FastAPI на Render.com
+- [ ] MOEX API
+- [ ] Базовая ML модель
+
+### 🔄 Интеграция (Дни 7-10)
+- [ ] Реальные данные
+- [ ] Сохранение портфеля
+- [ ] Синхронизация
+
+### 🔄 Финализация (Дни 11-18)
+- [ ] Уведомления
+- [ ] Тестирование
+- [ ] Оптимизация
+- [ ] Релиз
+
+Подробнее: [MVP_STATUS.md](MVP_STATUS.md)
+
+## 🤝 Команда
+
+- **Разработка**: AI Assistant + Sergej
+- **Дизайн**: Material Design 3
+- **Данные**: Mock + MOEX API (планируется)
+
+## 📄 Лицензия
+
+Этот проект создан в образовательных целях.
+
+## 🔗 Ссылки
+
+- [Flutter Documentation](https://docs.flutter.dev/)
+- [MOEX API](https://www.moex.com/a2193)
+- [Supabase](https://supabase.com/)
+- [Prophet](https://facebook.github.io/prophet/)
+
+---
+
+**Сделано с ❤️ для MRSU**
+**Версия:** MVP v0.1.0
+**Дата:** Ноябрь 2025
