@@ -3,7 +3,11 @@
     "allow": [
       "Bash(flutter pub get:*)",
       "Bash(flutter run:*)",
-      "Bash(timeout /t 15)"
+      "Bash(timeout /t 15)",
+      "Bash(python analyze_excel.py:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
