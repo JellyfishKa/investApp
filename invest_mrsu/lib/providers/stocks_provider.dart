@@ -4,12 +4,14 @@ import '../models/prediction.dart';
 import '../models/price_history.dart';
 import '../models/dividend.dart';
 import '../data/mock_data.dart';
+import '../services/ml_api_service.dart';
 
 class StocksProvider with ChangeNotifier {
   List<Stock> _stocks = [];
   final Map<String, PriceHistory> _priceHistories = {};
   final Map<String, PredictionSet> _predictions = {};
-  final Set<String> _viewedPredictions = {}; // для отслеживания просмотренных прогнозов
+  final Set<String> _viewedPredictions =
+      {}; // для отслеживания просмотренных прогнозов
 
   StocksProvider() {
     _loadStocks();
@@ -41,14 +43,44 @@ class StocksProvider with ChangeNotifier {
   }
 
   // Получить прогнозы
-  PredictionSet getPredictions(String ticker) {
-    if (!_predictions.containsKey(ticker)) {
-      final stock = getStock(ticker);
-      if (stock != null) {
-        _predictions[ticker] = MockData.getPredictions(ticker, stock.currentPrice);
-      }
+  Future<PredictionSet> getPredictions(String ticker) async {
+    // Check cache first
+    if (_predictions.containsKey(ticker)) {
+      return _predictions[ticker]!;
     }
-    return _predictions[ticker]!;
+
+    final stock = getStock(ticker);
+    if (stock == null) {
+      throw Exception('Stock not found: $ticker');
+    }
+
+    try {
+      // Try to get predictions from ML API
+      final mlService = MLApiService();
+      final apiPredictions = await mlService.getPredictions(ticker);
+
+      // Cache the predictions
+      _predictions[ticker] = apiPredictions;
+
+      mlService.dispose();
+      notifyListeners();
+
+      return apiPredictions;
+    } catch (e) {
+      print('Failed to fetch ML predictions for $ticker: $e');
+      print('Falling back to mock data');
+
+      // Fallback to mock data
+      final mockPredictions = MockData.getPredictions(
+        ticker,
+        stock.currentPrice,
+      );
+      _predictions[ticker] = mockPredictions;
+
+      notifyListeners();
+
+      return mockPredictions;
+    }
   }
 
   // Отметить просмотр прогноза
@@ -71,8 +103,6 @@ class StocksProvider with ChangeNotifier {
   List<Stock> get gazpromStocks => _stocks;
 
   // Получить головную компанию
-  Stock? get parentStock => _stocks.firstWhere(
-    (s) => s.isParent,
-    orElse: () => _stocks.first,
-  );
+  Stock? get parentStock =>
+      _stocks.firstWhere((s) => s.isParent, orElse: () => _stocks.first);
 }
