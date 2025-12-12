@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/prediction.dart';
-import '../models/stock.dart';
 
 /// Service for interacting with ML Backend API
 class MLApiService {
