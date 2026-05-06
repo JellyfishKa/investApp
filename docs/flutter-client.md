@@ -1,4 +1,4 @@
-# Flutter-клиент
+# Flutter-клиент НейроПульс
 
 Мобильное приложение на Flutter с Material 3 дизайном. Поддерживает Android и Windows (теоретически — iOS, macOS, Linux, Web, но не тестировалось).
 
